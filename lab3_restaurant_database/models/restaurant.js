@@ -29,3 +29,9 @@ const restaurantSchema = new moongoose.Schema({
 const Restaurant = moongoose.model("Restaurant",restaurantSchema)
 
 module.exports = Restaurant
+
+
+restaurantSchema.query.sortBy = function(flag) {
+    return this.sort({restaurant_id: flag})
+}
+
