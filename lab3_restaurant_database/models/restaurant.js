@@ -47,6 +47,11 @@ module.exports = Restaurant
 
 
 restaurantSchema.query.sortBy = function(flag) {
-    return this.sort({restaurant_id: flag})
+    if(flag === "ASC") {
+    return this.sort({restaurant_id: 1})
+    }
+    else {
+        return this.sort({restaurant_id: -1})
+    }
 }
 
