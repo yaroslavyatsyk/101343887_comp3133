@@ -14,7 +14,7 @@ const restaurantSchema = new moongoose.Schema({
         required: true
     },
     restaurant_id: {
-        type: String,
+        type: Number,
         required: true
     },
     address: {
@@ -46,12 +46,4 @@ const Restaurant = moongoose.model("Restaurant",restaurantSchema)
 module.exports = Restaurant
 
 
-restaurantSchema.query.sortBy = function(flag) {
-    if(flag === "ASC") {
-    return this.sort({restaurant_id: 1})
-    }
-    else {
-        return this.sort({restaurant_id: -1})
-    }
-}
 

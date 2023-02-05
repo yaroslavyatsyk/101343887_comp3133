@@ -17,12 +17,14 @@ router.post("/restaurants", async (req, res) => {
 // Read all restaurants
 router.get("/restaurants", async (req, res) => {
     try {
-        const restaurants = await Restaurant.find({})
+        let sort = req.query.sortBy ? req.query.sortBy.toLowerCase() : 'asc';
+        const sortOrder = sort === 'asc' ? 1 : -1;
+        const restaurants = await Restaurant.find({}).sort({ restaurant_id: sortOrder });
         res.send(restaurants)
     } catch (error) {
         res.status(500).send(error)
     }
-})
+});
 
 // Read a single restaurant by ID
 router.get("/restaurants/:id", async (req, res) => {
@@ -72,17 +74,27 @@ router.delete("/restaurants/:id", async (req, res) => {
         res.status(500).send(error)
     }
 })
-
-module.exports = router
-
-router.get('/restaurants/sortBy', async (req, res) => {
+  
+  router.get("/restaurants/Delicatessen", async (req, res) => {
     try {
-      const restaurants = await Restaurant.find().sortBy(req.body.sortBy);
-      res.json(restaurants);
-    } catch (err) {
-      res.status(500).json({ message: err.message });
+      const restaurants = await Restaurant.find({
+        cuisines: "Delicatessen",
+        city: { $ne: "Brooklyn" },
+      })
+        .select({
+          _id: 0,
+          cuisines: 1,
+          name: 1,
+          city: 1,
+        })
+        .sort({ name: 1 });
+  
+      res.send(restaurants);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
     }
   });
-  
+
+
 module.exports = router
     
