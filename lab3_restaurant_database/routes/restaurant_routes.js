@@ -14,12 +14,22 @@ router.post("/restaurants", async (req, res) => {
     }
 })
 
+
 // Read all restaurants
 router.get("/restaurants", async (req, res) => {
     try {
         let sort = req.query.sortBy ? req.query.sortBy.toLowerCase() : 'asc';
         const sortOrder = sort === 'asc' ? 1 : -1;
         const restaurants = await Restaurant.find({}).sort({ restaurant_id: sortOrder });
+        res.send(restaurants)
+    } catch (error) {
+        res.status(500).send(error)
+    }
+});
+router.get("/restaurants/cuisine/:type", async (req, res) => {
+    try {
+        let filter = req.params.type
+        const restaurants = await Restaurant.find({cuisine: filter});
         res.send(restaurants)
     } catch (error) {
         res.status(500).send(error)
