@@ -18,8 +18,23 @@ const restaurantSchema = new moongoose.Schema({
         required: true
     },
     address: {
-        type: moongoose.Schema.Types.ObjectId,
-        ref: 'Address'
+        building: {
+            type:  Number,
+            required: true,
+
+            validate(value) {
+                if(value < 0) {
+                throw new Error("Building number can not be negative")
+                }
+            }
+         },
+         street: {
+            type: String,
+            required: true
+         },
+         zipcode: {
+            type: String
+         }
     }
 
 

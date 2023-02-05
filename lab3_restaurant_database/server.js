@@ -1,7 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const restaurantRoutes = require('./routes/restaurant_routes.js');
-const addressRouter = require("./routes/address_routes.js")
 
 
 
@@ -23,7 +22,6 @@ mongoose.connect('mongodb+srv://yaroslav9728:Mikki2009+@cluster0.0t8zd1u.mongodb
 
 
 app.use(restaurantRoutes);
-app.use(addressRouter);
 
 
 app.listen(5001, () => { console.log(`Server is running at http://localhost:${5001}`) });
