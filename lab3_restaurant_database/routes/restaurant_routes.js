@@ -75,25 +75,20 @@ router.delete("/restaurants/:id", async (req, res) => {
     }
 })
   
-  router.get("/restaurants/Delicatessen", async (req, res) => {
+router.get("/restaurants/Delicatessen/all", async (req, res) => {
     try {
-      const restaurants = await Restaurant.find({
-        cuisines: "Delicatessen",
-        city: { $ne: "Brooklyn" },
-      })
-        .select({
-          _id: 0,
-          cuisines: 1,
-          name: 1,
-          city: 1,
-        })
-        .sort({ name: 1 });
-  
-      res.send(restaurants);
-    } catch (error) {
-      res.status(500).json({ message: error.message });
-    }
-  });
+    const restaurants = await Restaurant.find({
+    cuisines: "Delicatessen",
+    city: { $ne: "Brooklyn" },
+    })
+    .select("cuisine name city")
+    .sort("name");
+
+    res.send(restaurants);
+} catch (error) {
+  res.status(500).json({ message: error.message });
+}
+});
 
 
 module.exports = router
