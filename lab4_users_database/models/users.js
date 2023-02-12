@@ -34,16 +34,16 @@ const userSchema = new mongoose.Schema({
             type: String,
             required: true,
             match: /^\d{5}-\d{4}$/
-        }
-    },
-    geo: {
-        lat: {
-            type: Number,
-            required: true
         },
-        lng: {
-            type: Number,
-            required: true
+        geo: {
+            lat: {
+                type: Number,
+                required: true
+            },
+            lng: {
+                type: Number,
+                required: true
+            }
         }
     },
     phone: {
